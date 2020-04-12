@@ -5,7 +5,6 @@ metadata:
   labels:
     app: order-service
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: order-service
@@ -16,6 +15,12 @@ spec:
     spec:
       containers:
       - name: order-service
-        image: divesh212/order-service:tag1
+        image: divesh212/order-service2:tag1
+        env:
+        - name: JAEGER_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: JAEGER_HOST
+              name: config-map
         ports:
         - containerPort: 8092
