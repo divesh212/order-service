@@ -3,6 +3,7 @@ pipeline
 	agent any
 		tools
 		{
+			jdk 'Java'
 			maven 'Maven3'
 		}
 		options
