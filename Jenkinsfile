@@ -89,7 +89,8 @@ pipeline
 				steps
 				{
 					bat '''
-					FOR /F "tokens=* USEBACKQ" %%F IN (`docker ps -qf name=devops`) DO (
+					echo docker
+					FOR /F "tokens=* USEBACKQ" %%F IN (`docker ps -qf name^=devops`) DO (
 						SET ContainerID=%%F
 					)
 					if [ %ContainerID% ]
