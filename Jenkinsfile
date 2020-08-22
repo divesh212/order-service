@@ -89,8 +89,8 @@ pipeline
 				steps
 				{
 					bat '''
-					ContainerID=$(docker ps -qf name=devops)
-					if [ $ContainerID ]
+					set ContainerID=$(docker ps -qf name=devops)
+					if [ %ContainerID% ]
 					then
 						docker stop $ContainerID
 						docker rm -f $ContainerID
