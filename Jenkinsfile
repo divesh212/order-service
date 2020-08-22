@@ -89,15 +89,10 @@ pipeline
 				steps
 				{
 					bat '''
-					echo docker
 					FOR /F "tokens=* USEBACKQ" %%F IN (`docker ps -qf name^=devops`) DO (
 						SET ContainerID=%%F
 					)
-					if [ %ContainerID% ]
-					then
-						docker stop $ContainerID
-						docker rm -f $ContainerID
-					fi
+					echo id%ContainerID%
 				'''
 				}
 			}
