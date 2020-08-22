@@ -1,5 +1,10 @@
 pipeline
 {
+	environment {
+		registry = "divesh212/order-service3"
+		registryCredential = 'dockerhub'
+		dockerImage = ''
+    }
 	agent any
 		tools
 		{
@@ -72,15 +77,23 @@ pipeline
 			{
 				steps
 				{
-					bat "docker build -t divesh212/order-service3:build${BUILD_NUMBER} --no-cache -f Dockerfile ."
+					script {
+						dockerImage = docker.build registry + ":build$BUILD_NUMBER"
+					}
 				}
 			}
+			
+			
 			
 			stage('Docker Push')
 			{
 				steps
 				{
-					bat "docker push divesh212/order-service3:build${BUILD_NUMBER}"
+					script {
+						docker.withRegistry( '', registryCredential ) {
+							dockerImage.push()
+						}
+					}
 				}
 			}
 	}
