@@ -68,6 +68,21 @@ pipeline
 				}
 			}
 			
+			stage('Docker Image')
+			{
+				steps
+				{
+					bat "docker build -t divesh212/order-service3:build${BUILD_NUMBER} --no-cache -f Dockerfile ."
+				}
+			}
+			
+			stage(Docker Push)
+			{
+				steps
+				{
+					bat "docker push divesh212/order-service3:build${BUILD_NUMBER}"
+				}
+			}
 	}
 	
 	post {
