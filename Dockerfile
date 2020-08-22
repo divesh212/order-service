@@ -4,4 +4,4 @@ RUN wget --user admin --password 21021996 http://192.168.137.1:8082/artifactory/
 
 EXPOSE 8092
 
-ENTRYPOINT ["java","-jar","orderservice-0.0.1-20200816.101829-1.jar"]
+ENTRYPOINT ["java","-jar","orderservice-0.0.1-SNAPSHOT.jar"]
