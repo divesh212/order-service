@@ -89,7 +89,9 @@ pipeline
 				steps
 				{
 					bat '''
-					set ContainerID=$(docker ps -qf name=devops)
+					FOR /F "tokens=* USEBACKQ" %%F IN (`docker ps -qf name=devops`) DO (
+						SET ContainerID=%%F
+					)
 					if [ %ContainerID% ]
 					then
 						docker stop $ContainerID
