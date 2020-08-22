@@ -83,6 +83,29 @@ pipeline
 					bat "docker push divesh212/order-service3:build${BUILD_NUMBER}"
 				}
 			}
+			
+			stage('Stop running Container')
+			{
+				steps
+				{
+					bat '''
+					ContainerID=$(docker ps -qf name=devops)
+					if [ $ContainerID ]
+					then
+						docker stop $ContainerID
+						docker rm -f $ContainerID
+					fi
+				'''
+				}
+			}
+			
+			stage('Docker Deployment')
+			{
+				steps
+				{
+					bat "docker run --name devops-order-service -d -p 8092:8092 divesh212/order-service3:build${BUILD_NUMBER}"
+				}
+			}
 	}
 	
 	post {
