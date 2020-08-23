@@ -92,7 +92,11 @@ pipeline
 					FOR /F "tokens=* USEBACKQ" %%F IN (`docker ps -qf name^=devops`) DO (
 						SET ContainerID=%%F
 					)
-					echo id%ContainerID%
+					IF NOT [%ContainerID%] = [] (
+						echo "Stopping running container %ContainerID%"
+						docker stop %ContainerID%
+						docker rm -f %ContainerID%
+					) ELSE ( echo "No existing container running")
 				'''
 				}
 			}
